@@ -98,9 +98,15 @@ const Products = (props) => {
     setCart([...cart, ...item]);
     //doFetch(query);
   };
-  const deleteCartItem = (index) => {
-    let newCart = cart.filter((item, i) => index != i);
+  const deleteCartItem = (delIndex) => {
+    let newCart = cart.filter((item, i) => delIndexndex != i);
+    let target = cart.filter((item, index) =>delIndex ==index);
+    let newItems = items.map((item, index) => {
+      if (item.name == target[0].name) item.stock = item.instock + 1;
+      return item;
+    });
     setCart(newCart);
+    setItems(newItems);
   };
   const photos = ['apple.png', 'orange.png', 'beans.png', 'cabbage.png'];
 
