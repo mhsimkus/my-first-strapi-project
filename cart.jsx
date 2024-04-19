@@ -83,8 +83,8 @@ const Products = (props) => {
   const { Card, Accordion, Button, Container, Row, Col, Image, Input } = ReactBootstrap;
   //  Fetch Data
   const { Fragment, useState, useEffect, useReducer } = React;
-  const [query, setQuery] = useState('http://localhost:1337/api/products');
-  const [{ data, isLoading, isError }, doFetch] = useDataApi('http://localhost:1337/api/products', {
+  const [query, setQuery] = useState('http://localhost:1337/products');
+  const [{ data, isLoading, isError }, doFetch] = useDataApi('http://localhost:1337/products', {
     data: [],
   });
   console.log(`Rendering Products ${JSON.stringify(data)}`);
@@ -92,6 +92,8 @@ const Products = (props) => {
   const addToCart = (e) => {
     let name = e.target.name;
     let item = items.filter((item) => item.name == name);
+    if (item[0].instock == 0) return;
+    item[0].instock = item[0].instock - 1;
     console.log(`add to Cart ${JSON.stringify(item)}`);
     setCart([...cart, ...item]);
     //doFetch(query);
@@ -192,3 +194,4 @@ const Products = (props) => {
 };
 // ========================================
 ReactDOM.render(<Products />, document.getElementById('root'));
+
